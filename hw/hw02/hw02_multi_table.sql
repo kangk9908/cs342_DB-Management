@@ -89,11 +89,15 @@ SELECT TOP 5 he.BusinessEntityID AS [Employee ID]
 		, rate AS [Pay Rate]
 		, RateChangeDate AS [Pay Rate Change Date]
 FROM HumanResources.Employee he
-		LEFT OUTER JOIN HumanResources.EmployeePayHistory heph
-			ON he.BusinessEntityID = heph.BusinessEntityID
+	JOIN HumanResources.EmployeePayHistory heph
+		ON he.BusinessEntityID = heph.BusinessEntityID
 ORDER BY rate DESC
 
 --12
-SELECT LoginID as [Employee Login ID]
-		, 
-FROM HumanResources.Employee
+SELECT he.LoginID as [Employee Login ID]
+FROM HumanResources.Employee he
+JOIN Person.BusinessEntityAddress pbea
+		ON he.BusinessEntityID = pbea.BusinessEntityID
+LEFT JOIN Person.Address pa
+		ON pbea.AddressID = pa.AddressID
+WHERE pa.AddressLine1 IS NULL
