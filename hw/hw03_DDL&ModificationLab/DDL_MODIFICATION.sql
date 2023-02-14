@@ -2,12 +2,7 @@
 -- for CS342 Database Management
 -- Professor Patrick Bailey
 -- DDL & Modification Lab
-DROP TABLE ActiveHerd.sheepShots
-DROP TABLE ActiveHerd.shotList
-DROP TABLE ActiveHerd.shepherd
-DROP TABLE ActiveHerd.injectionList
-DROP TABLE ActiveHerd.sheep
-DROP TABLE ActiveHerd.breed
+
 --step 2
 CREATE DATABASE sheep;
 GO
