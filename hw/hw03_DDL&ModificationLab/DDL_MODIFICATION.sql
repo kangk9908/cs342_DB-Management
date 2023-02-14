@@ -15,24 +15,9 @@ GO
 CREATE SCHEMA ActiveHerd
 
 --step 6
-CREATE TABLE [ActiveHerd].sheep (
-	IdNumber INT NOT NULL PRIMARY KEY,
-	SheepName CHAR(30),
-	BreedCategory CHAR(20),
-	Gender CHAR(1),
-	ShepherdId INT
-);
-
 CREATE TABLE [ActiveHerd].breed (
 	BreedCategory CHAR(20) NOT NULL PRIMARY KEY,
 	BreedDescription VARCHAR(100)
-);
-
-CREATE TABLE [ActiveHerd].sheepShots (
-	IdNumber INT NOT NULL,
-	ShotType CHAR(20),
-	ShotDate DATE,
-	InjectionType CHAR(20)
 );
 
 CREATE TABLE [ActiveHerd].shotList (
@@ -51,6 +36,22 @@ CREATE TABLE [ActiveHerd].shepherd (
 	LastName VARCHAR(20),
 	FirstName VARCHAR(20),
 	ShepherdCertification char(1) NOT NULL
+);
+
+CREATE TABLE [ActiveHerd].sheep (
+	IdNumber INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	SheepName CHAR(30),
+	BreedCategory CHAR(20) NOT NULL,
+	Gender CHAR(1) NOT NULL,
+	ShepherdId INT NOT NULL
+);
+
+CREATE TABLE [ActiveHerd].sheepShots (
+	IdNumber INT NOT NULL,
+	ShotType CHAR(20),
+	ShotDate DATE,
+	InjectionType CHAR(20),
+	PRIMARY KEY(IdNumber, ShotType, ShotDate)
 );
 
 --step 7
@@ -106,25 +107,6 @@ INSERT INTO ActiveHerd.injectionList(InjectionType, injectionDescription)
 		('corona',
 		'Oral Injection')
 
-INSERT INTO ActiveHerd.sheep (IdNumber, SheepName, BreedCategory, Gender, ShepherdId)
-	VALUES (1,
-		'YoungKwang',
-		'ghost renegade',
-		'?',
-		1),
-		
-		(2,
-		'Gunjoo',
-		'spicy jalapeno',
-		'm',
-		1),
-		
-		(3, 
-		'Seongchan',
-		'cow-ward',
-		'm',
-		2)
-
 INSERT INTO ActiveHerd.breed (BreedCategory, BreedDescription)
 	VALUES ('ghost renegade',
 		'This species of cows are often spotted with golden spectacles.'),
@@ -134,6 +116,22 @@ INSERT INTO ActiveHerd.breed (BreedCategory, BreedDescription)
 		
 		('cow-ward',
 		'This species of cows are often to be the bravest.')
+
+INSERT INTO ActiveHerd.sheep (SheepName, BreedCategory, Gender, ShepherdId)
+	VALUES ('YoungKwang',
+		'ghost renegade',
+		'?',
+		1),
+		
+		('Gunjoo',
+		'spicy jalapeno',
+		'm',
+		1),
+		
+		('Seongchan',
+		'cow-ward',
+		'm',
+		2)
 
 --step 9
 INSERT INTO ActiveHerd.sheepShots (IdNumber,
@@ -177,8 +175,8 @@ DELETE FROM ActiveHerd.shepherd
 DROP TABLE ActiveHerd.sheepShots
 DROP TABLE ActiveHerd.shotList
 DROP TABLE ActiveHerd.injectionList
-DROP TABLE ActiveHerd.shepherd
 DROP TABLE ActiveHerd.sheep
+DROP TABLE ActiveHerd.shepherd
 DROP TABLE ActiveHerd.breed
 
 --step 17
